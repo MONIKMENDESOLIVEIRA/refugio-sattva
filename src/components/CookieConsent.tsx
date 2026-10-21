@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Cookie } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -76,9 +76,14 @@ const solidBlue =
   "h-auto rounded-[var(--radius-sm)] border-2 border-forest bg-forest px-4 py-2 text-sm font-medium text-cream hover:border-sattva-green hover:bg-sattva-green"
 
 export function CookieConsent() {
+  // A escolha do visitante fica no navegador, então o banner não entra no HTML pré-renderizado.
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
   const [decided, setDecided] = useState(() => readStored() !== null)
   const [modalOpen, setModalOpen] = useState(false)
   const [prefs, setPrefs] = useState<Preferences>(() => readStored() ?? allWith(false))
+
+  if (!mounted) return null
 
   const save = (next: Preferences) => {
     store(next)

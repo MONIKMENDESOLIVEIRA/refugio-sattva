@@ -7,26 +7,29 @@ import { hero } from "@/data/content"
 const DESKTOP_QUERY = "(min-width: 768px)"
 
 // Vídeo horizontal no computador e vertical no celular, cada um no seu recorte.
-function useIsDesktop() {
+// Na pré-renderização não há tela (null): o vídeo só é escolhido no navegador.
+function useIsDesktop(): boolean | null {
   return useSyncExternalStore(
     (onChange) => {
       const mql = window.matchMedia(DESKTOP_QUERY)
       mql.addEventListener("change", onChange)
       return () => mql.removeEventListener("change", onChange)
     },
-    () => window.matchMedia(DESKTOP_QUERY).matches
+    () => window.matchMedia(DESKTOP_QUERY).matches,
+    () => null
   )
 }
 
 export function Hero() {
-  const variant = useIsDesktop() ? "desktop" : "mobile"
+  const isDesktop = useIsDesktop()
+  const variant = isDesktop === null ? null : isDesktop ? "desktop" : "mobile"
 
   return (
     <section id="topo" className="relative flex min-h-[640px] items-center overflow-hidden md:min-h-[920px]">
       <video
-        key={variant}
+        key={variant ?? "pending"}
         className="absolute inset-0 h-full w-full object-cover"
-        poster={`/images/refugio/topo-poster-${variant}.webp`}
+        poster={variant ? `/images/refugio/topo-poster-${variant}.webp` : undefined}
         autoPlay
         muted
         loop
@@ -34,8 +37,12 @@ export function Hero() {
         preload="metadata"
         aria-hidden="true"
       >
-        <source src={`/videos/refugio-sattva-topo-${variant}.webm`} type="video/webm" />
-        <source src={`/videos/refugio-sattva-topo-${variant}.mp4`} type="video/mp4" />
+        {variant && (
+          <>
+            <source src={`/videos/refugio-sattva-topo-${variant}.webm`} type="video/webm" />
+            <source src={`/videos/refugio-sattva-topo-${variant}.mp4`} type="video/mp4" />
+          </>
+        )}
       </video>
       <div className="absolute inset-0 bg-gradient-to-b from-black/35 to-forest/70" aria-hidden="true" />
 
