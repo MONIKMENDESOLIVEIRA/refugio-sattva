@@ -40,7 +40,7 @@ export const about = {
   emphasis: "desacelerar",
   paragraphs: [
     "A Praia da Solidão é a última praia do sul da Ilha de Santa Catarina que se alcança de carro. Por isso, guarda um ritmo raro em Florianópolis: mar calmo, cachoeira, trilhas e uma comunidade pequena cercada de Mata Atlântica.",
-    "Foi nesse cenário que nasceu o Refúgio Sattva: chalés para casais construídos na encosta, em área de preservação, com vista para o mar e privacidade de verdade. Todos têm hidromassagem para relaxar a dois e varanda para contemplar o oceano.",
+    "Foi nesse cenário que nasceu o Refúgio Sattva: chalés para casais construídos na encosta, com vista para o mar e privacidade de verdade. Todos têm hidromassagem para relaxar a dois e varanda para contemplar o oceano.",
     "Sattva, em sânscrito, significa equilíbrio, leveza e clareza. É isso que queremos que você leve daqui: dias sem pressa, o som da mata e a sensação de ter, enfim, descansado.",
   ],
   quote: "Aqui, o luxo é o silêncio, a vista e o tempo que volta a ser seu.",
